@@ -1,0 +1,71 @@
+import { Button, VerticalBox, HorizontalBox, TabWidget } from "std-widgets.slint";
+
+export component AppWindow inherits Window {
+    in-out property <int> counter: 42;
+    callback request-increase-value();
+    callback request-decrease-value();
+
+    TabWidget {
+
+        Tab {
+
+            title: "Counter";
+            VerticalBox {
+
+                HorizontalBox {
+                    alignment: stretch;
+                    horizontal-stretch: 1;
+                    vertical-stretch: 1;
+
+                    Rectangle {
+                        vertical-stretch: 1;
+
+                        horizontal-stretch: 1;
+                        border-color: blue;
+                        border-width: 1px;
+                        HorizontalBox {
+                            vertical-stretch: 1;
+                            horizontal-stretch: 1;
+                            alignment: start;
+                            Text {
+                                vertical-stretch: 0;
+                                text: "Counter: \{root.counter}";
+                            }
+                        }
+                    }
+                }
+
+                HorizontalBox {
+                    vertical-stretch: 0;
+                    Button {
+                        vertical-stretch: 0;
+
+                        text: "Decrease value";
+                        clicked => {
+                            root.request-decrease-value();
+                        }
+                        primary: false;
+                    }
+
+                    Button {
+                        vertical-stretch: 0;
+
+                        text: "Increase value";
+                        clicked => {
+                            root.request-increase-value();
+                        }
+                        primary: true;
+                    }
+                }
+            }
+        }
+
+        Tab {
+
+            title: "Pink";
+            Rectangle {
+                background: lightpink;
+            }
+        }
+    }
+}
