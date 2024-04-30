@@ -1,6 +1,8 @@
 import { Button, VerticalBox, HorizontalBox, TabWidget } from "std-widgets.slint";
 
 export component AppWindow inherits Window {
+    no-frame: false;
+    title: "Slint";
     in-out property <int> counter: 42;
     callback request-increase-value();
     callback request-decrease-value();
