@@ -1,8 +1,20 @@
-import { Button, VerticalBox, HorizontalBox, TabWidget } from "std-widgets.slint";
+import {  VerticalBox, HorizontalBox, TabWidget, Palette } from "std-widgets.slint";
+import {Button} from "./components/Button.slint";
+import "./fonts/GeistMono/GeistMono-BLack.otf";
+import "./fonts/GeistMono/GeistMono-Bold.otf";
+import "./fonts/GeistMono/GeistMono-Light.otf";
+import "./fonts/GeistMono/GeistMono-Medium.otf";
+import "./fonts/GeistMono/GeistMono-Regular.otf";
+import "./fonts/GeistMono/GeistMono-SemiBold.otf";
+import "./fonts/GeistMono/GeistMono-Thin.otf";
+import "./fonts/GeistMono/GeistMono-UltraBlack.otf";
+import "./fonts/GeistMono/GeistMono-UltraLight.otf";
 
 export component AppWindow inherits Window {
     no-frame: false;
     title: "Slint";
+    default-font-family: "Geist Mono";
+    background: #0d0d0d;
     in-out property <int> counter: 42;
     callback request-increase-value();
     callback request-decrease-value();
@@ -17,8 +29,8 @@ export component AppWindow inherits Window {
             Rectangle {
                 vertical-stretch: 1;
                 horizontal-stretch: 1;
-                border-radius: 6px;
-                background: #f0f0f0;
+                border-radius: 2px;
+                background: rgba(255, 255, 255, 0.1);
                 HorizontalBox {
                     vertical-stretch: 1;
                     horizontal-stretch: 1;
@@ -40,7 +52,6 @@ export component AppWindow inherits Window {
                 clicked => {
                     root.request-decrease-value();
                 }
-                primary: false;
             }
 
             Button {
@@ -50,7 +61,6 @@ export component AppWindow inherits Window {
                 clicked => {
                     root.request-increase-value();
                 }
-                primary: true;
             }
         }
     }
