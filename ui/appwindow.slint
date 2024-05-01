@@ -10,59 +10,117 @@ import "./fonts/GeistMono/GeistMono-Thin.otf";
 import "./fonts/GeistMono/GeistMono-UltraBlack.otf";
 import "./fonts/GeistMono/GeistMono-UltraLight.otf";
 
+component StateTest {
+
+    states [
+        pressed when b1.pressed: {
+            box.background: green;
+            circle.x: 90px;
+        }
+    ]
+
+    VerticalBox {
+        spacing: 16px;
+        box := Rectangle {
+            background: blue;
+            border-radius: 2px;
+            padding: 16px;
+            width: 100px;
+            height: 100px;
+            animate background {
+                duration: 250ms;
+                easing: ease-in-out;
+            }
+
+            circle := Rectangle {
+                background: red;
+                border-radius: 5px;
+                padding: 16px;
+                width: 10px;
+                height: 10px;
+                animate x {
+                    duration: 250ms;
+                    easing: ease-in-out;
+                }
+                animate y {
+                    duration: 250ms;
+                    easing: ease-in-out;
+                }
+            }
+        }
+
+        b1 := Button {
+            text: "Click me!";
+        }
+    }
+}
+
 export component AppWindow inherits Window {
     no-frame: false;
     title: "Slint";
     default-font-family: "Geist Mono";
     background: #0d0d0d;
+    padding: 16px;
     in-out property <int> counter: 42;
     callback request-increase-value();
     callback request-decrease-value();
 
-    VerticalBox {
+    TabWidget {
+        vertical-stretch: 1;
+        horizontal-stretch: 1;
+        Tab {
+            title: "Counter";
+            VerticalBox {
 
-        HorizontalBox {
-            alignment: stretch;
-            horizontal-stretch: 1;
-            vertical-stretch: 1;
-
-            Rectangle {
-                vertical-stretch: 1;
-                horizontal-stretch: 1;
-                border-radius: 2px;
-                background: rgba(255, 255, 255, 0.1);
                 HorizontalBox {
-                    vertical-stretch: 1;
+                    alignment: stretch;
                     horizontal-stretch: 1;
-                    alignment: start;
-                    Text {
-                        color: rgba(255,255,255,0.75);
+                    vertical-stretch: 1;
+
+                    Rectangle {
+                        vertical-stretch: 1;
+                        horizontal-stretch: 1;
+                        border-radius: 2px;
+                        background: rgba(255, 255, 255, 0.1);
+                        HorizontalBox {
+                            vertical-stretch: 1;
+                            horizontal-stretch: 1;
+                            alignment: start;
+                            Text {
+                                color: rgba(255,255,255,0.75);
+                                vertical-stretch: 0;
+                                text: "Counter: \{root.counter}";
+                            }
+                        }
+                    }
+                }
+
+                HorizontalBox {
+                    vertical-stretch: 0;
+                    Button {
                         vertical-stretch: 0;
-                        text: "Counter: \{root.counter}";
+
+                        text: "Decrease value";
+                        clicked => {
+                            root.request-decrease-value();
+                        }
+                    }
+
+                    Button {
+                        vertical-stretch: 0;
+
+                        text: "Increase value";
+                        clicked => {
+                            root.request-increase-value();
+                        }
                     }
                 }
             }
         }
 
-        HorizontalBox {
-            vertical-stretch: 0;
-            Button {
-                vertical-stretch: 0;
-
-                text: "Decrease value";
-                clicked => {
-                    root.request-decrease-value();
-                }
-            }
-
-            Button {
-                vertical-stretch: 0;
-
-                text: "Increase value";
-                clicked => {
-                    root.request-increase-value();
-                }
-            }
+        Tab {
+            title: "Animation test";
+            StateTest { }
         }
     }
 }

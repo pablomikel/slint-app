@@ -1,5 +1,6 @@
 export component Button inherits Rectangle {
     in-out property text <=> txt.text;
+    out property <bool> pressed <=> touch.pressed;
     callback clicked <=> touch.clicked;
     border-radius: 2px;
     border-width: 1px;
