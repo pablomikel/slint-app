@@ -1,4 +1,4 @@
-import {  VerticalBox, HorizontalBox, TabWidget, Palette } from "std-widgets.slint";
+import {  VerticalBox, HorizontalBox, TabWidget, Palette, ScrollView } from "std-widgets.slint";
 import {Button} from "./components/Button.slint";
 import "./fonts/GeistMono/GeistMono-Black.otf";
 import "./fonts/GeistMono/GeistMono-Bold.otf";
@@ -65,9 +65,24 @@ export component AppWindow inherits Window {
     callback request-increase-value();
     callback request-decrease-value();
 
+    property <[string]> items: [
+        "Item 1",
+        "Item 2",
+        "Item 3",
+        "Item 4",
+        "Item 5",
+        "Item 6",
+        "Item 7",
+        "Item 8",
+        "Item 9",
+        "Item 10"
+    ];
+
     TabWidget {
         vertical-stretch: 1;
         horizontal-stretch: 1;
+        current-index: 2;
+
         Tab {
             title: "Counter";
             VerticalBox {
@@ -121,6 +136,31 @@ export component AppWindow inherits Window {
         Tab {
             title: "Animation test";
             StateTest { }
+        }
+
+        Tab {
+            title: "Items";
+            ScrollView {
+                viewport-height: items.length * 40px;
+                VerticalBox {
+                    spacing: 0px;
+                    for item in items: area := TouchArea {
+                        Rectangle {
+                            border-radius: 6px;
+                            height: 40px;
+                            background: area.has-hover ? rgba(255, 255, 255, 0.05) : rgba(255, 255, 255, 0);
+                            animate background {
+                                duration: 150ms;
+                                easing: ease-in-out;
+                            }
+                            Text {
+                                text: item;
+                                color: rgba(255,255,255,0.75);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
