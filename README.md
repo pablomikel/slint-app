@@ -1,3 +1,7 @@
+Experimenting with Slint to create an app for a raspberry pi zero 2w.
+
+---
+
 # Slint Rust Template
 
 A template for a Rust application that's using [Slint](https://slint.rs) for the user interface.
